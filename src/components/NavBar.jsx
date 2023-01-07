@@ -25,7 +25,7 @@ export default function NavBar() {
             <BiHighlight className="text-2xl" />
           </Link>
         )}
-        {user && <span className="shrink-0">{user.displayName}</span>}
+        {user && <span className="shrink-0 sm:block hidden">{user.displayName}</span>}
         {!user && (
           <Button text={"Login"} onClick={login}>
             Login
