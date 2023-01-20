@@ -87,3 +87,20 @@ export const addOrUpdateCart = async (userid, product) => {
 export const deleteCart = async (userid, productId) => {
   return remove(ref(database, `carts/${userid}/${productId}`));
 };
+
+export const deleteAllCart = async (userid) => {
+  return remove(ref(database, `carts/${userid}`));
+};
+
+export const addOrder = async (userid, order) => {
+  return set(ref(database, `orders/${userid}/${order.id}`), order);
+};
+
+export const getOrder = async (userid) => {
+  return get(ref(database, `orders/${userid}`)).then((snapshot) => {
+    if (snapshot.exists()) {
+      return Object.values(snapshot.val());
+    }
+    return {};
+  });
+};

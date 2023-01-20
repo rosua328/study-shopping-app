@@ -1,4 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Outlet } from "react-router-dom";
 import Navbar from "./components/NavBar";
 import { AuthContextProvider } from "./context/AuthContext";
@@ -12,6 +13,7 @@ function App() {
         <Navbar />
         <Outlet />
       </AuthContextProvider>
+      <ReactQueryDevtools initialIsOpen={true} />
     </QueryClientProvider>
   );
 }

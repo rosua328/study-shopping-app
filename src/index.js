@@ -10,6 +10,9 @@ import Cart from "./pages/Cart";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import NewProduct from "./pages/NewProduct";
 import ProductsList from "./pages/ProductsList";
+import PaymentResult from "./pages/PaymentResult";
+import OrdersList from "./pages/OrdersList";
+import OrderDetail from "./pages/OrderDetail";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +36,30 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Cart />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/success",
+        element: (
+          <ProtectedRoute>
+            <PaymentResult />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/orders",
+        element: (
+          <ProtectedRoute>
+            <OrdersList />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/order/:id",
+        element: (
+          <ProtectedRoute>
+            <OrderDetail />
           </ProtectedRoute>
         ),
       },

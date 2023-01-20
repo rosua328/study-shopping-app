@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { addProduct } from "../api/firebase";
 import { imageUpload } from "../api/uploader";
 import CheckBox from "../components/CheckBox";
 import Button from "../components/ui/Button";
+import useProducts from "../hooks/useProducts";
 
 export default function NewProduct() {
   const [product, setProduct] = useState({ color: "red" });
@@ -10,6 +10,7 @@ export default function NewProduct() {
   const [size, setSize] = useState([]);
   const [isUpLoading, setIsUpLoading] = useState(false);
   const [success, setSuccess] = useState(null);
+  const { addProduct } = useProducts();
 
   const sizeDatas = ["S", "M", "L", "XL"];
   const colorDatas = [
@@ -44,13 +45,17 @@ export default function NewProduct() {
     setIsUpLoading(true);
     imageUpload(file)
       .then((url) => {
-        addProduct(product, url, size);
-      })
-      .then(() => {
-        setSuccess("성공적 제품등록 완료");
-        setTimeout(() => {
-          setSuccess(null);
-        }, 4000);
+        addProduct.mutate(
+          { product, url, size },
+          {
+            onSuccess: () => {
+              setSuccess("성공적 제품등록 완료");
+              setTimeout(() => {
+                setSuccess(null);
+              }, 4000);
+            },
+          }
+        );
       })
       .finally(() => setIsUpLoading(false));
   };
